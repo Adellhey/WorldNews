@@ -5,8 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.example.worldnews.R
 import com.example.worldnews.databinding.FragmentWorldNewsDetailBinding
-import com.squareup.picasso.Picasso
+import com.example.worldnews.presentation.adapters.ViewPagerAdapter
+import com.google.android.material.tabs.TabLayoutMediator
 
 class WorldNewsDetailFragment : Fragment() {
     private var title: String? = null
@@ -28,6 +30,7 @@ class WorldNewsDetailFragment : Fragment() {
             image = it.getString(ARG_IMAGE)
             content = it.getString(ARG_CONTENT)
         }
+
     }
 
     override fun onCreateView(
@@ -40,11 +43,11 @@ class WorldNewsDetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.title.text = title
-        binding.description.text = description
-        binding.fullDescription.text = if (fullDescription.isNullOrEmpty()) content else fullDescription
-        Picasso.get().load(image).into(binding.ivImage)
-
+        binding.viewPager2.adapter = ViewPagerAdapter(description, image)
+        val tabNames: Array<String> = arrayOf(getString(R.string.button_desc), getString(R.string.button_image))
+        TabLayoutMediator(binding.tabLayout, binding.viewPager2) { tab, position ->
+            tab.text = tabNames[position]
+        }.attach()
 
     }
 

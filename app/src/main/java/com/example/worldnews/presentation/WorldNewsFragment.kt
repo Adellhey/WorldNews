@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.worldnews.R
 import com.example.worldnews.data.Results
 import com.example.worldnews.databinding.FragmentWorldNewsBinding
-import com.example.worldnews.presentation.adapter.WorldNewsAdapter
+import com.example.worldnews.presentation.adapters.WorldNewsAdapter
 
 class WorldNewsFragment : Fragment() {
 
@@ -75,14 +75,14 @@ class WorldNewsFragment : Fragment() {
         }
 
         binding.buttonRussianNews.setOnClickListener {
-            viewModel.processUiEvent(ProcessUiEvent.InitTypeOfNews(TypeOfNews.RUSSIAN))
+            viewModel.initNews(TypeOfNews.RUSSIAN)
             viewModel.worldNewsList.observe(viewLifecycleOwner) {
                 adapter.worldNewsList = it
             }
         }
 
         binding.buttonAmericanNews.setOnClickListener {
-            viewModel.processUiEvent(ProcessUiEvent.InitTypeOfNews(TypeOfNews.AMERICAN))
+            viewModel.initNews(TypeOfNews.AMERICAN)
             viewModel.worldNewsList.observe(viewLifecycleOwner) {
                 adapter.worldNewsList = it
             }

@@ -2,6 +2,7 @@ package com.example.worldnews.presentation
 
 import android.app.Application
 import android.util.Log
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.worldnews.api.ApiFactory
@@ -9,20 +10,17 @@ import com.example.worldnews.database.AppDatabase
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 
-class WorldNewsViewModel(application: Application) : BaseViewModel<ProcessUiEvent>() {
+class WorldNewsViewModel(application: Application): AndroidViewModel(application) {
 
     private val compositeDisposable = CompositeDisposable()
     private val db = AppDatabase.getInstance(application)
     val worldNewsList = db.worldNewsInfoDao().getWorldNewsList()
     private var loaderLiveData: MutableLiveData<Boolean> = MutableLiveData()
 
-    override fun processUiEvent(event: ProcessUiEvent) {
-        when (event) {
-            is ProcessUiEvent.InitTypeOfNews -> {
-                if (event.type == TypeOfNews.AMERICAN) loadAmericanNews() else loadRussianNews()
-            }
-        }
+    fun initNews (typeOfNews: TypeOfNews) {
+        if (typeOfNews == TypeOfNews.AMERICAN) loadAmericanNews() else loadRussianNews()
     }
+
 
     private fun loadRussianNews() {
         val disposable = ApiFactory.apiService.getRussianNews()

@@ -1,7 +1,8 @@
 <resources>
     <string name="app_name">WorldNews</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="russian_news">Russian News</string>
     <string name="american_news">American News</string>
+    <string name="button_desc">Description</string>
+    <string name="button_image">Image</string>
 </resources>
